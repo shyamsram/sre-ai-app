@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header style="position: relative;">
+        <h1>AI Hackathon Ecommerce</h1>
+        <a href="/cart" style="position: absolute; top: 1.2rem; right: 2rem; text-decoration: none;">
+            <span style="position: relative; display: inline-block;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart" style="width:32px;height:32px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                {% if cart_count and cart_count > 0 %}
+                <span style="position: absolute; top: -8px; right: -8px; background: #e53e3e; color: #fff; border-radius: 50%; padding: 2px 7px; font-size: 0.9rem; font-weight: bold;">{{ cart_count }}</span>
+                {% endif %}
+            </span>
+        </a>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/users">Users</a>
+        <a href="/orders">Orders</a>
+        <a href="/login">Login</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        &copy; 2025 AI Hackathon Ecommerce
+    </footer>
+</body>
+</html>

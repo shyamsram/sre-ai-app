@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Users</h2>
+<table style="width:100%; border-collapse: collapse; border: 2px solid #333;">
+    <thead>
+        <tr style="background: #f4f4f4;">
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">User ID</th>
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">User Name</th>
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">Password</th>
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">First Login Timestamp</th>
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">Failed Login Timestamp</th>
+            <th style="border: 1px solid #333; padding: 8px; text-align: center;">Failed Login Count</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.user_id }}</td>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.user_name }}</td>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.password }}</td>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.first_login_ts }}</td>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.failed_login_ts }}</td>
+            <td style="border: 1px solid #333; padding: 8px; text-align: center;">{{ user.failed_login_count }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

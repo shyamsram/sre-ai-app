@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Login</h2>
+<form method="post" style="max-width: 400px; margin: auto;">
+    <div style="margin-bottom: 1rem;">
+        <label for="user_name">Email:</label><br>
+        <input type="text" id="user_name" name="user_name" required style="width: 100%; padding: 0.5rem;">
+    </div>
+    <div style="margin-bottom: 1rem; position: relative;">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 0.5rem;">
+        <span style="position: absolute; right: 10px; top: 38px; cursor: pointer;" onclick="togglePassword()">
+            <img id="eyeIcon" src="https://cdn-icons-png.flaticon.com/512/709/709612.png" alt="Show Password" style="width:22px;height:22px;">
+        </span>
+    </div>
+    <button type="submit" class="button">signin</button>
+    {% if error %}
+    <div style="color: red; margin-top: 1rem;">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+    <div style="color: green; margin-top: 1rem;">{{ success }}</div>
+    {% endif %}
+<script>
+function togglePassword() {
+    var pwd = document.getElementById('password');
+    var eye = document.getElementById('eyeIcon');
+    if (pwd.type === 'password') {
+        pwd.type = 'text';
+        eye.src = 'https://cdn-icons-png.flaticon.com/512/709/709612.png'; // open eye
+    } else {
+        pwd.type = 'password';
+        eye.src = 'https://cdn-icons-png.flaticon.com/512/709/709612.png'; // closed eye (same icon for simplicity)
+    }
+}
+</script>
+</form>
+{% endblock %}

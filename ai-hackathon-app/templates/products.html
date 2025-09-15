@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Products</h2>
+{% if message %}
+<div style="color: green; font-weight: bold; margin-bottom: 1rem;">{{ message }}</div>
+{% endif %}
+<div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+{% for product in products %}
+<div class="product-card" style="flex-direction: column; width: 220px;">
+    <img src="{{ product.image_url }}" alt="{{ product.name }}" style="width: 200px; height: 200px;">
+    <div class="product-info" style="text-align: center;">
+        <h3>{{ product.name }}</h3>
+        <p>Price: ${{ product.price }}</p>
+        <form method="post" style="margin-top: 1rem;">
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <button type="submit" class="button">Add to Cart</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
