@@ -43,6 +43,10 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+    order_total = db.Column(db.Numeric(10, 2))
+    order_status = db.Column(db.String(1))
+    channel = db.Column(db.String(3))
+    promo_id = db.Column(db.String(20))
 
 
 # USER_INFO model
@@ -228,3 +232,37 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+# API endpoint to fetch all orders or a specific order by id
+@app.route('/api/orders', methods=['GET'])
+def get_orders():
+    order_id = request.args.get('id')
+    if order_id:
+        order = Order.query.filter_by(id=order_id).first()
+        if order:
+            return jsonify({
+                'id': order.id,
+                'user_id': order.user_id,
+                'product_id': order.product_id,
+                'quantity': order.quantity,
+                'order_total': float(order.order_total) if order.order_total else None,
+                'order_status': order.order_status,
+                'channel': order.channel,
+                'promo_id': order.promo_id
+            })
+        else:
+            return jsonify({'error': 'Order not found'}), 404
+    else:
+        orders = Order.query.all()
+        return jsonify([
+            {
+                'id': o.id,
+                'user_id': o.user_id,
+                'product_id': o.product_id,
+                'quantity': o.quantity,
+                'order_total': float(o.order_total) if o.order_total else None,
+                'order_status': o.order_status,
+                'channel': o.channel,
+                'promo_id': o.promo_id
+            } for o in orders
+        ])
